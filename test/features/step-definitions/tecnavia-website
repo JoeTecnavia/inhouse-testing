@@ -1,7 +1,7 @@
 const { client } = require('nightwatch-cucumber')
 const { Given, When, Then } = require('cucumber')
 let displayDate;
-let dClient = client.page.downloadpages();
+let dClient = client.page.testpage();
 Given('I open the ta link', function () {
 client.maximizeWindow();
 return dClient.navigate();
