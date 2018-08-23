@@ -1,0 +1,42 @@
+const { client } = require('nightwatch-cucumber')
+const { Given, When, Then } = require('cucumber')
+let displayDate;
+let dClient = client.page.downloadpages();
+Given('I open the ta link', function () {
+client.maximizeWindow();
+return dClient.navigate();
+});
+
+When('The ipaddb is generated', function() {
+return client.assert.elementNotPresent('#mainBody > div.nodb > p');
+});
+
+When('The correct date is shown', function() {
+let today = new Date();
+let year = today.getFullYear();
+let month = dClient.formatMonth(today.getMonth());
+let dd = today.getDate();
+let euroDate = year+month+dd;
+client.frame('mainframe');
+//client.getLocation(dClient.getCurrDay())
+client.waitForElementPresent('#pullDownDate', 5000, function(){
+  client.getValue('#pullDownDate > option:nth-child(1)', function(result){
+    console.log(result.value);
+    console.log(euroDate);
+    
+    client.assert.equal(result.value, euroDate);
+  });
+  
+  //console.log(euroDate+" and real date is "+displayDate);
+});
+
+
+console.log("Day of month equals: "+dd);
+
+client.waitForElementPresent('#titles > a:nth-child(5) > div > div.section-page-wrap-title', 5000);
+client.assert.containsText('#titles > a:nth-child(5) > div > div.section-page-wrap-title', "Main");
+client.waitForElementPresent('#dayNumber', 5000);
+client.assert.containsText('#dayNumber', dd);
+client.click('#dayNumber');
+return client.pause(5000);
+});
