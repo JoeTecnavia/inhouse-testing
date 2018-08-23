@@ -1,5 +1,5 @@
 module.exports = {
-    url : 'http://englewoodsun.fl.newsmemory.com/?pSetup=englewoodsun_ta',
+    url : '[url]',
         elements: {
         currentDate: {
             //selector: '//*[@id="titles"]/div[3]'
